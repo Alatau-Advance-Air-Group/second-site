@@ -31,6 +31,7 @@ def init_db() -> None:
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 first_name TEXT NOT NULL,
                 last_name TEXT NOT NULL,
+                company_name TEXT NOT NULL,
                 position TEXT NOT NULL,
                 phone TEXT NOT NULL,
                 email TEXT NOT NULL,
@@ -38,6 +39,17 @@ def init_db() -> None:
             )
             """
         )
+        columns = {
+            row["name"]
+            for row in connection.execute("PRAGMA table_info(registrations)").fetchall()
+        }
+        if "company_name" not in columns:
+            connection.execute(
+                """
+                ALTER TABLE registrations
+                ADD COLUMN company_name TEXT NOT NULL DEFAULT ''
+                """
+            )
         connection.commit()
 
 
@@ -45,6 +57,7 @@ def validate_payload(payload: dict[str, str]) -> tuple[dict[str, str], str | Non
     required_fields = {
         "first_name": "first_name",
         "last_name": "last_name",
+        "company_name": "company_name",
         "position": "position",
         "phone": "phone",
         "email": "email",
@@ -71,15 +84,17 @@ def insert_registration(connection: sqlite3.Connection, cleaned: dict[str, str])
         INSERT INTO registrations (
             first_name,
             last_name,
+            company_name,
             position,
             phone,
             email,
             created_at
-        ) VALUES (?, ?, ?, ?, ?, ?)
+        ) VALUES (?, ?, ?, ?, ?, ?, ?)
         """,
         (
             cleaned["first_name"],
             cleaned["last_name"],
+            cleaned["company_name"],
             cleaned["position"],
             cleaned["phone"],
             cleaned["email"],
@@ -108,7 +123,7 @@ def list_registrations() -> object:
     with closing(get_connection()) as connection:
         rows = connection.execute(
             """
-            SELECT id, first_name, last_name, position, phone, email, created_at
+            SELECT id, first_name, last_name, company_name, position, phone, email, created_at
             FROM registrations
             ORDER BY id DESC
             """
@@ -160,7 +175,14 @@ def import_registrations() -> tuple[object, int]:
         return jsonify({"ok": False, "error": "CSV must be UTF-8 encoded."}), 400
 
     reader = csv.DictReader(io.StringIO(content))
-    required_columns = {"first_name", "last_name", "position", "phone", "email"}
+    required_columns = {
+        "first_name",
+        "last_name",
+        "company_name",
+        "position",
+        "phone",
+        "email",
+    }
     fieldnames = set(reader.fieldnames or [])
     if not required_columns.issubset(fieldnames):
         missing = ", ".join(sorted(required_columns - fieldnames))

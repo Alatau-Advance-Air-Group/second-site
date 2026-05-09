@@ -795,6 +795,10 @@
           <input type="text" id="lname" placeholder="Жаксыбеков" required>
         </div>
         <div class="form-group full">
+          <label for="company">Название компании *</label>
+          <input type="text" id="company" placeholder="Alatau Advance Air Group" required>
+        </div>
+        <div class="form-group full">
           <label for="position">Должность *</label>
           <input type="text" id="position" placeholder="Директор / Руководитель отдела / Советник..." required>
         </div>
@@ -874,6 +878,7 @@
   async function submitForm() {
     const fname = document.getElementById('fname').value.trim();
     const lname = document.getElementById('lname').value.trim();
+    const company = document.getElementById('company').value.trim();
     const position = document.getElementById('position').value.trim();
     const phone = document.getElementById('phone').value.trim();
     const email = document.getElementById('email').value.trim();
@@ -883,7 +888,7 @@
     statusBox.textContent = '';
     statusBox.className = 'form-status';
 
-    if (!fname || !lname || !position || !phone || !email) {
+    if (!fname || !lname || !company || !position || !phone || !email) {
       alert('Пожалуйста, заполните все обязательные поля.');
       return;
     }
@@ -906,6 +911,7 @@
         body: JSON.stringify({
           first_name: fname,
           last_name: lname,
+          company_name: company,
           position,
           phone,
           email
