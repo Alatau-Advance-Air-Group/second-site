@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Список гостей</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f5f4fb;
+    --panel: #ffffff;
+    --panel-2: #f8f7fc;
+    --line: #e6e1f3;
+    --text: #221a44;
+    --muted: #73688f;
+    --accent: #7060c4;
+    --shadow: 0 18px 48px rgba(61, 43, 124, 0.08);
+  }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background:
+      radial-gradient(circle at top right, rgba(112,96,196,0.08), transparent 18%),
+      linear-gradient(180deg, #fbfaff 0%, #f4f2fb 100%);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 24px;
+  }
+
+  .shell {
+    width: min(100%, 1600px);
+    margin: 0 auto;
+  }
+
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+
+  .header {
+    padding: 28px 32px 20px;
+    border-bottom: 1px solid var(--line);
+    background: linear-gradient(180deg, rgba(112,96,196,0.04) 0%, rgba(112,96,196,0.01) 100%);
+  }
+
+  .header-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
+    align-items: flex-end;
+    flex-wrap: wrap;
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+
+  h1 {
+    font-size: clamp(30px, 4vw, 52px);
+    line-height: 1.02;
+    margin-bottom: 12px;
+  }
+
+  .count {
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  .actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 12px 18px;
+    background: var(--panel);
+    color: var(--text);
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, border-color 0.2s, opacity 0.2s;
+  }
+
+  .btn:hover {
+    background: #f7f4ff;
+    border-color: #d9d0f2;
+  }
+
+  .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .btn-danger {
+    background: #fff3f3;
+    color: #8f2e2e;
+    border-color: #f0caca;
+  }
+
+  .btn-danger:hover {
+    background: #ffe8e8;
+    border-color: #e8b7b7;
+  }
+
+  .status {
+    min-height: 20px;
+    margin-top: 10px;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .status.error { color: #b64646; }
+  .status.success { color: #2f7c4b; }
+
+  .table-wrap {
+    overflow-x: auto;
+    background: var(--panel);
+  }
+
+  table {
+    width: 100%;
+    min-width: 980px;
+    border-collapse: collapse;
+  }
+
+  thead th {
+    text-align: left;
+    padding: 18px 20px;
+    background: var(--panel-2);
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--line);
+  }
+
+  tbody td {
+    padding: 18px 20px;
+    font-size: 14px;
+    line-height: 1.55;
+    border-bottom: 1px solid #f0ecfa;
+    vertical-align: top;
+  }
+
+  tbody tr:hover {
+    background: #faf9fe;
+  }
+
+  tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  th.checkbox-col,
+  td.checkbox-col {
+    width: 56px;
+    padding-left: 18px;
+    padding-right: 12px;
+  }
+
+  input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--accent);
+    cursor: pointer;
+  }
+
+  .empty {
+    padding: 42px 20px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 15px;
+  }
+
+  @media (max-width: 720px) {
+    body { padding: 14px; }
+    .header { padding: 22px 20px 18px; }
+    h1 { margin-bottom: 8px; }
+    thead th, tbody td { padding: 14px 16px; }
+  }
+</style>
+</head>
+<body>
+  <div class="shell">
+    <section class="card">
+      <div class="header">
+        <div class="header-top">
+          <div>
+            <p class="eyebrow">Guest List</p>
+            <h1>Список гостей</h1>
+            <p class="count" id="count-label">Загружаем заявки...</p>
+          </div>
+          <div class="actions">
+            <button class="btn btn-danger" id="delete-btn" type="button" onclick="deleteSelected()" disabled>Удалить выбранные</button>
+          </div>
+        </div>
+        <p class="status" id="status-box" aria-live="polite"></p>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th class="checkbox-col"><input id="select-all" type="checkbox" onchange="toggleAllRows(this)"></th>
+              <th>ID</th>
+              <th>Дата</th>
+              <th>Имя</th>
+              <th>Фамилия</th>
+              <th>Должность</th>
+              <th>Телефон</th>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody id="registrations-body">
+            <tr><td class="empty" colspan="8">Загружаем данные...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+<script>
+  function escapeHtml(value) {
+    return String(value)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  function formatDate(value) {
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return value;
+
+    return new Intl.DateTimeFormat('ru-RU', {
+      dateStyle: 'medium',
+      timeStyle: 'short'
+    }).format(date);
+  }
+
+  async function loadRegistrations() {
+    const body = document.getElementById('registrations-body');
+    const label = document.getElementById('count-label');
+    const selectAll = document.getElementById('select-all');
+    const deleteButton = document.getElementById('delete-btn');
+
+    label.textContent = 'Загружаем заявки...';
+    body.innerHTML = '<tr><td class="empty" colspan="8">Загружаем данные...</td></tr>';
+    selectAll.checked = false;
+    deleteButton.disabled = true;
+
+    try {
+      const response = await fetch('/api/registrations');
+      const result = await response.json();
+
+      if (!response.ok || !result.ok) {
+        throw new Error(result.error || 'Не удалось загрузить список гостей.');
+      }
+
+      label.textContent = `Всего гостей: ${result.count}`;
+
+      if (!result.items.length) {
+        body.innerHTML = '<tr><td class="empty" colspan="8">Пока нет ни одной заявки.</td></tr>';
+        return;
+      }
+
+      body.innerHTML = result.items.map((item) => `
+        <tr>
+          <td class="checkbox-col"><input class="row-checkbox" type="checkbox" value="${item.id}" onchange="syncSelectionState()"></td>
+          <td>${item.id}</td>
+          <td>${escapeHtml(formatDate(item.created_at))}</td>
+          <td>${escapeHtml(item.first_name)}</td>
+          <td>${escapeHtml(item.last_name)}</td>
+          <td>${escapeHtml(item.position)}</td>
+          <td>${escapeHtml(item.phone)}</td>
+          <td>${escapeHtml(item.email)}</td>
+        </tr>
+      `).join('');
+    } catch (error) {
+      label.textContent = error.message || 'Не удалось загрузить список гостей.';
+      body.innerHTML = '<tr><td class="empty" colspan="8">Ошибка загрузки данных.</td></tr>';
+      selectAll.checked = false;
+      deleteButton.disabled = true;
+    }
+  }
+
+  function getSelectedIds() {
+    return Array.from(document.querySelectorAll('.row-checkbox:checked')).map((checkbox) => Number(checkbox.value));
+  }
+
+  function syncSelectionState() {
+    const checkboxes = Array.from(document.querySelectorAll('.row-checkbox'));
+    const checked = getSelectedIds();
+    const selectAll = document.getElementById('select-all');
+    const deleteButton = document.getElementById('delete-btn');
+
+    deleteButton.disabled = checked.length === 0;
+    selectAll.checked = checkboxes.length > 0 && checked.length === checkboxes.length;
+    selectAll.indeterminate = checked.length > 0 && checked.length < checkboxes.length;
+  }
+
+  function toggleAllRows(source) {
+    document.querySelectorAll('.row-checkbox').forEach((checkbox) => {
+      checkbox.checked = source.checked;
+    });
+    syncSelectionState();
+  }
+
+  async function deleteSelected() {
+    const ids = getSelectedIds();
+    const statusBox = document.getElementById('status-box');
+    const deleteButton = document.getElementById('delete-btn');
+
+    statusBox.textContent = '';
+    statusBox.className = 'status';
+
+    if (!ids.length) {
+      deleteButton.disabled = true;
+      return;
+    }
+
+    const confirmed = window.confirm(`Удалить выбранные заявки: ${ids.length}?`);
+    if (!confirmed) {
+      return;
+    }
+
+    deleteButton.disabled = true;
+    statusBox.textContent = 'Удаляем выбранные заявки...';
+
+    try {
+      const response = await fetch('/api/registrations/delete', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ ids })
+      });
+
+      const result = await response.json();
+
+      if (!response.ok || !result.ok) {
+        throw new Error(result.error || 'Не удалось удалить заявки.');
+      }
+
+      statusBox.textContent = `Удалено заявок: ${result.deleted}`;
+      statusBox.className = 'status success';
+      await loadRegistrations();
+    } catch (error) {
+      statusBox.textContent = error.message || 'Не удалось удалить заявки.';
+      statusBox.className = 'status error';
+      syncSelectionState();
+    }
+  }
+
+  loadRegistrations();
+</script>
+</body>
+</html>

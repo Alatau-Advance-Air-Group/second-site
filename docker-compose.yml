@@ -1,0 +1,39 @@
+services:
+  site:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: site-for-invitations
+    depends_on:
+      - api
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: site-for-invitations-api
+    volumes:
+      - registrations_data:/data
+    restart: unless-stopped
+
+  ngrok:
+    image: ngrok/ngrok:latest
+    container_name: site-for-invitations-ngrok
+    profiles:
+      - tunnel
+    depends_on:
+      - site
+    command:
+      - http
+      - --log=stdout
+      - --authtoken=${NGROK_AUTHTOKEN}
+      - site:80
+    ports:
+      - "4040:4040"
+    restart: unless-stopped
+
+volumes:
+  registrations_data:

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Выбор шрифта</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400&family=Raleway:wght@200;300&family=Josefin+Sans:wght@300;400&family=DM+Sans:wght@300;400&family=Outfit:wght@300;400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #080614;
+    color: #F4F0FF;
+    font-family: sans-serif;
+    padding: 40px 24px;
+  }
+  h2 {
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(185,170,230,0.5);
+    margin-bottom: 8px;
+  }
+  .option {
+    border: 1px solid rgba(112,96,196,0.25);
+    border-radius: 16px;
+    padding: 40px 48px;
+    margin-bottom: 24px;
+    background: rgba(112,96,196,0.05);
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    position: relative;
+  }
+  .option:hover { border-color: rgba(112,96,196,0.6); background: rgba(112,96,196,0.1); }
+  .option .num {
+    position: absolute;
+    top: 16px; right: 20px;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: rgba(185,170,230,0.4);
+    text-transform: uppercase;
+  }
+  .title-line1 { display: block; font-size: clamp(40px, 7vw, 80px); line-height: 1.05; color: #F4F0FF; }
+  .title-line2 {
+    display: block;
+    font-size: clamp(40px, 7vw, 80px);
+    line-height: 1.05;
+    background: linear-gradient(90deg, #7060C4, #B8ACEF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .opt1 .title-line1, .opt1 .title-line2 { font-family: 'Source Sans 3', sans-serif; font-weight: 300; }
+  .opt2 .title-line1, .opt2 .title-line2 { font-family: 'Raleway', sans-serif; font-weight: 200; }
+  .opt3 .title-line1, .opt3 .title-line2 { font-family: 'Josefin Sans', sans-serif; font-weight: 300; }
+  .opt4 .title-line1, .opt4 .title-line2 { font-family: 'DM Sans', sans-serif; font-weight: 300; }
+  .opt5 .title-line1, .opt5 .title-line2 { font-family: 'Outfit', sans-serif; font-weight: 300; }
+  .opt6 .title-line1, .opt6 .title-line2 { font-family: 'Inter', sans-serif; font-weight: 300; }
+  .label {
+    margin-top: 16px;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: rgba(185,170,230,0.5);
+  }
+  .label strong { color: rgba(185,170,230,0.85); }
+  h1 {
+    font-family: sans-serif;
+    font-size: 14px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(185,170,230,0.5);
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(112,96,196,0.2);
+  }
+</style>
+</head>
+<body>
+<h1>Выбор шрифта для hero-заголовка</h1>
+
+<div class="option opt1">
+  <div class="num">1 — Source Sans 3 Light</div>
+  <span class="title-line1">UAM Center</span>
+  <span class="title-line2">Eurasia</span>
+  <p class="label"><strong>Source Sans 3, weight 300</strong> — ближайший аналог Myriad Pro Light из брендбука. Тонкий, нейтральный, очень читаемый.</p>
+</div>
+
+<div class="option opt2">
+  <div class="num">2 — Raleway Thin</div>
+  <span class="title-line1">UAM Center</span>
+  <span class="title-line2">Eurasia</span>
+  <p class="label"><strong>Raleway, weight 200</strong> — элегантный тонкий с геометрическим характером. Популярен в premium-брендах.</p>
+</div>
+
+<div class="option opt3">
+  <div class="num">3 — Josefin Sans Light</div>
+  <span class="title-line1">UAM Center</span>
+  <span class="title-line2">Eurasia</span>
+  <p class="label"><strong>Josefin Sans, weight 300</strong> — строгая геометрия, авиационный характер. Буквы узкие и чёткие.</p>
+</div>
+
+<div class="option opt4">
+  <div class="num">4 — DM Sans Light</div>
+  <span class="title-line1">UAM Center</span>
+  <span class="title-line2">Eurasia</span>
+  <p class="label"><strong>DM Sans, weight 300</strong> — современный, аккуратный, нейтральный. Хорошо смотрится на тёмном фоне.</p>
+</div>
+
+<div class="option opt5">
+  <div class="num">5 — Outfit Light</div>
+  <span class="title-line1">UAM Center</span>
+  <span class="title-line2">Eurasia</span>
+  <p class="label"><strong>Outfit, weight 300</strong> — чистый, слегка округлый, технологичный. Один из самых популярных в tech-дизайне сейчас.</p>
+</div>
+
+<div class="option opt6">
+  <div class="num">6 — Inter Light</div>
+  <span class="title-line1">UAM Center</span>
+  <span class="title-line2">Eurasia</span>
+  <p class="label"><strong>Inter, weight 300</strong> — нейтральный, профессиональный, без лишних деталей. Отраслевой стандарт для интерфейсов.</p>
+</div>
+</body>
+</html>
