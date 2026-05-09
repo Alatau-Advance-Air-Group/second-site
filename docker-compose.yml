@@ -19,21 +19,5 @@ services:
       - registrations_data:/data
     restart: unless-stopped
 
-  ngrok:
-    image: ngrok/ngrok:latest
-    container_name: site-for-invitations-ngrok
-    profiles:
-      - tunnel
-    depends_on:
-      - site
-    command:
-      - http
-      - --log=stdout
-      - --authtoken=${NGROK_AUTHTOKEN}
-      - site:80
-    ports:
-      - "4040:4040"
-    restart: unless-stopped
-
 volumes:
   registrations_data:
