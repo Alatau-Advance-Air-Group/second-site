@@ -80,6 +80,54 @@
     align-items: center;
   }
 
+  .language-switcher {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    z-index: 4;
+    display: inline-flex;
+    gap: 8px;
+    padding: 8px;
+    border: 1px solid rgba(112,96,196,0.25);
+    border-radius: 999px;
+    background: rgba(8,6,20,0.38);
+    backdrop-filter: blur(12px);
+  }
+
+  .lang-btn {
+    border: none;
+    border-radius: 999px;
+    padding: 8px 14px;
+    background: transparent;
+    color: var(--muted);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, transform 0.2s;
+  }
+
+  .lang-btn:hover {
+    color: var(--white);
+    transform: translateY(-1px);
+  }
+
+  .lang-btn.active {
+    background: linear-gradient(135deg, rgba(112,96,196,0.9), rgba(184,172,239,0.9));
+    color: #F4F0FF;
+  }
+
+  @media(max-width:640px) {
+    .language-switcher {
+      top: 16px;
+      right: 16px;
+      left: 16px;
+      justify-content: center;
+    }
+  }
+
   .badge {
     display: inline-flex;
     align-items: center;
@@ -630,60 +678,72 @@
 <!-- HERO -->
 <section class="hero">
   <div class="grid-overlay"></div>
+  <div class="language-switcher" aria-label="Language selector">
+    <button class="lang-btn" type="button" data-lang="kz" onclick="setLanguage('kz')">KZ</button>
+    <button class="lang-btn" type="button" data-lang="ru" onclick="setLanguage('ru')">RU</button>
+    <button class="lang-btn" type="button" data-lang="en" onclick="setLanguage('en')">EN</button>
+  </div>
 
   <div class="hero-inner">
     <div class="badge">Alatau Advance Air Group Ltd · 2026</div>
 
-    <p class="hero-eyebrow">Закрытая демонстрация</p>
+    <p class="hero-eyebrow" data-i18n="heroEyebrow">Закрытая демонстрация</p>
 
     <h1 class="hero-title">
       <span class="line1">UAM Center</span>
       <span class="line2">Eurasia</span>
     </h1>
 
-    <p class="hero-sub">
+    <p class="hero-sub" data-i18n-html="heroSub">
       Вы получили персональное приглашение.<br>
       <strong>Alatau Advance Air Group</strong> открывает эпоху городской аэромобильности в Казахстане — и мы рады видеть вас среди первых свидетелей этого момента.
     </p>
 
-    <a href="#register" class="hero-cta">Подтвердить участие</a>
+    <a href="#register" class="hero-cta" data-i18n="heroCta">Подтвердить участие</a>
   </div>
 </section>
 
 <!-- ABOUT -->
 <section id="about">
   <div class="container">
-    <p class="section-label">О мероприятии</p>
-    <h2 class="section-title">Будущее уже<br>сейчас</h2>
-    <p class="section-desc">
+    <p class="section-label" data-i18n="aboutLabel">О мероприятии</p>
+    <h2 class="section-title" data-i18n-html="aboutTitle">Будущее уже<br>сейчас</h2>
+    <p class="section-desc" data-i18n="aboutDesc">
       Первый закрытый демонстрационный полёт аэротакси в UAM Center Eurasia — это не просто авиашоу. Это старт новой транспортной инфраструктуры Казахстана, которую мы строим вместе с вами.
     </p>
 
     <div class="about-grid">
       <div class="about-visual">
-        <img src="assets/images/evtol-model-autoflight.webp" alt="eVTOL модель" class="evtol-img">
+        <img src="assets/images/evtol-model-autoflight.webp" alt="eVTOL модель" class="evtol-img" data-i18n-alt="evtolAlt">
       </div>
 
       <div class="about-features">
         <div class="feature">
           <div class="feature-icon">⚡</div>
           <div class="feature-text">
-            <h4>Полностью электрический</h4>
-            <p>eVTOL-аппарат на электротяге — тихий, экологичный и безопасный полёт над городом.</p>
+            <h4 data-i18n="feature1Title">Полностью электрический</h4>
+            <p data-i18n="feature1Desc">eVTOL-аппарат на электротяге — тихий, экологичный и безопасный полёт над городом.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🛰️</div>
+          <div class="feature-text">
+            <h4 data-i18n="feature2Title">Автономная навигация</h4>
+            <p data-i18n="feature2Desc">Пилотирование с поддержкой систем автопилота и технологий цифрового управления воздушным пространством.</p>
           </div>
         </div>
         <div class="feature">
           <div class="feature-icon">🏙️</div>
           <div class="feature-text">
-            <h4>Городская мобильность</h4>
-            <p>Концепция аэротакси разработана для регулярных маршрутов между ключевыми точками города.</p>
+            <h4 data-i18n="feature3Title">Городская мобильность</h4>
+            <p data-i18n="feature3Desc">Концепция аэротакси разработана для регулярных маршрутов между ключевыми точками города.</p>
           </div>
         </div>
         <div class="feature">
           <div class="feature-icon">🇰🇿</div>
           <div class="feature-text">
-            <h4>Сделано для Казахстана</h4>
-            <p>Проект адаптирован под климатические и инфраструктурные условия казахстанских городов.</p>
+            <h4 data-i18n="feature4Title">Сделано для Казахстана</h4>
+            <p data-i18n="feature4Desc">Проект адаптирован под климатические и инфраструктурные условия казахстанских городов.</p>
           </div>
         </div>
       </div>
@@ -695,78 +755,78 @@
 <div class="stats">
   <div class="stat">
     <span class="stat-num">1</span>
-    <span class="stat-label">Первый в Центральной Азии</span>
+    <span class="stat-label" data-i18n="stat1Label">Первый в Центральной Азии</span>
   </div>
   <div class="stat">
     <span class="stat-num">eVTOL</span>
-    <span class="stat-label">Электрический летательный аппарат</span>
+    <span class="stat-label" data-i18n="stat2Label">Электрический летательный аппарат</span>
   </div>
   <div class="stat">
     <span class="stat-num">0</span>
-    <span class="stat-label">Выбросов CO₂</span>
+    <span class="stat-label" data-i18n="stat3Label">Выбросов CO₂</span>
   </div>
   <div class="stat">
     <span class="stat-num">100+</span>
-    <span class="stat-label">Мест для гостей</span>
+    <span class="stat-label" data-i18n="stat4Label">Мест для гостей</span>
   </div>
 </div>
 
 <!-- PROGRAMME -->
 <section id="programme" class="programme">
   <div class="container">
-    <p class="section-label">Программа дня</p>
-    <h2 class="section-title">Как пройдёт<br>мероприятие</h2>
-    <p class="section-desc">
+    <p class="section-label" data-i18n="programmeLabel">Программа дня</p>
+    <h2 class="section-title" data-i18n-html="programmeTitle">Как пройдёт<br>мероприятие</h2>
+    <p class="section-desc" data-i18n="programmeDesc">
       Один день, который войдёт в историю страны. Мы подготовили насыщенную программу для приглашённых гостей
     </p>
 
     <div class="timeline">
       <div class="tl-item">
-        <div class="tl-time">14:00</div>
+        <div class="tl-time">09:00</div>
         <div class="tl-dot"></div>
         <div class="tl-content">
-          <h4>Регистрация и приветствие гостей</h4>
-          <p>Приём гостей, приветственный кейтеринг</p>
+          <h4 data-i18n="timeline1Title">Регистрация и приветствие гостей</h4>
+          <p data-i18n="timeline1Desc">Приём гостей, приветственный кейтеринг</p>
         </div>
       </div>
       <div class="tl-item">
-        <div class="tl-time">14:30</div>
+        <div class="tl-time">10:00</div>
         <div class="tl-dot"></div>
         <div class="tl-content">
-          <h4>Официальное открытие</h4>
-          <p>Приветственное слово представителей компании, партнёров и официальных лиц</p>
+          <h4 data-i18n="timeline2Title">Официальное открытие</h4>
+          <p data-i18n="timeline2Desc">Приветственное слово представителей компании, партнёров и официальных лиц</p>
         </div>
       </div>
       <div class="tl-item">
-        <div class="tl-time">14:52</div>
+        <div class="tl-time">10:30</div>
         <div class="tl-dot"></div>
         <div class="tl-content">
-          <h4>Презентации технологий</h4>
-          <p>Презентация партнеров по low altitude economy (LAE)</p>
+          <h4 data-i18n="timeline3Title">Презентации технологий</h4>
+          <p data-i18n="timeline3Desc">Презентация партнеров по low altitude economy (LAE)</p>
         </div>
       </div>
       <div class="tl-item">
-        <div class="tl-time">15:30</div>
+        <div class="tl-time">11:00</div>
         <div class="tl-dot"></div>
         <div class="tl-content">
-          <h4>Исторический первый полёт</h4>
-          <p>Главный момент дня — демонстрационный полёт eVTOL над площадкой</p>
+          <h4 data-i18n="timeline4Title">Исторический первый полёт</h4>
+          <p data-i18n="timeline4Desc">Главный момент дня — демонстрационный полёт eVTOL над площадкой</p>
         </div>
       </div>
       <div class="tl-item">
-        <div class="tl-time">15:46</div>
+        <div class="tl-time">11:20</div>
         <div class="tl-dot"></div>
         <div class="tl-content">
-          <h4>Доставка с помощью беспилотных авиасистем</h4>
-          <p>Демонстрация элементов экономики низких высот (LAE)</p>
+          <h4 data-i18n="timeline5Title">Доставка с помощью беспилотных авиасистем</h4>
+          <p data-i18n="timeline5Desc">Демонстрация элементов экономики низких высот (LAE)</p>
         </div>
       </div>
       <div class="tl-item" style="padding-bottom:0">
-        <div class="tl-time">16:10</div>
+        <div class="tl-time">12:00</div>
         <div class="tl-dot"></div>
         <div class="tl-content">
-          <h4>Официальное закрытие</h4>
-          <p>Раздача информационных материалов и памятных сувениров для всех гостей</p>
+          <h4 data-i18n="timeline6Title">Официальное закрытие</h4>
+          <p data-i18n="timeline6Desc">Раздача информационных материалов и памятных сувениров для всех гостей</p>
         </div>
       </div>
     </div>
@@ -776,9 +836,9 @@
 <!-- REGISTRATION FORM -->
 <section id="register" class="form-section">
   <div class="container" style="text-align:center;">
-    <p class="section-label">Подтверждение участия</p>
-    <h2 class="section-title">Зарегистрируйтесь<br>как гость</h2>
-    <p class="section-desc" style="margin: 0 auto 0;">
+    <p class="section-label" data-i18n="registerLabel">Подтверждение участия</p>
+    <h2 class="section-title" data-i18n-html="registerTitle">Зарегистрируйтесь<br>как гость</h2>
+    <p class="section-desc" style="margin: 0 auto 0;" data-i18n="registerDesc">
       Мероприятие закрытое — только по приглашениям. Заполните форму, чтобы подтвердить ваше участие. Мы вышлем детали на указанный email.
     </p>
   </div>
@@ -787,37 +847,37 @@
     <div id="form-body">
       <div class="form-grid">
         <div class="form-group">
-          <label for="fname">Имя *</label>
-          <input type="text" id="fname" placeholder="Алибек" required>
+          <label for="fname" data-i18n="firstNameLabel">Имя *</label>
+          <input type="text" id="fname" placeholder="Алибек" required data-i18n-placeholder="firstNamePlaceholder">
         </div>
         <div class="form-group">
-          <label for="lname">Фамилия *</label>
-          <input type="text" id="lname" placeholder="Жаксыбеков" required>
+          <label for="lname" data-i18n="lastNameLabel">Фамилия *</label>
+          <input type="text" id="lname" placeholder="Жаксыбеков" required data-i18n-placeholder="lastNamePlaceholder">
         </div>
         <div class="form-group full">
-          <label for="company">Название компании *</label>
-          <input type="text" id="company" placeholder="Alatau Advance Air Group" required>
+          <label for="company" data-i18n="companyLabel">Название компании *</label>
+          <input type="text" id="company" placeholder="Alatau Advance Air Group" required data-i18n-placeholder="companyPlaceholder">
         </div>
         <div class="form-group full">
-          <label for="position">Должность *</label>
-          <input type="text" id="position" placeholder="Директор / Руководитель отдела / Советник..." required>
+          <label for="position" data-i18n="positionLabel">Должность *</label>
+          <input type="text" id="position" placeholder="Директор / Руководитель отдела / Советник..." required data-i18n-placeholder="positionPlaceholder">
         </div>
         <div class="form-group">
-          <label for="phone">Телефон *</label>
-          <input type="tel" id="phone" placeholder="+7 (___) ___-__-__" required>
+          <label for="phone" data-i18n="phoneLabel">Телефон *</label>
+          <input type="tel" id="phone" placeholder="+7 (___) ___-__-__" required data-i18n-placeholder="phonePlaceholder">
         </div>
         <div class="form-group">
-          <label for="email">Email *</label>
-          <input type="email" id="email" placeholder="name@example.com" required>
+          <label for="email" data-i18n="emailLabel">Email *</label>
+          <input type="email" id="email" placeholder="name@example.com" required data-i18n-placeholder="emailPlaceholder">
         </div>
       </div>
 
-      <p class="form-note">Нажимая кнопку, вы соглашаетесь с обработкой персональных данных. Информация используется исключительно для организации мероприятия.</p>
+      <p class="form-note" data-i18n="formNote">Нажимая кнопку, вы соглашаетесь с обработкой персональных данных. Информация используется исключительно для организации мероприятия.</p>
 
-      <button class="submit-btn" id="submit-btn" type="button" onclick="submitForm()">Подтвердить участие</button>
+      <button class="submit-btn" id="submit-btn" type="button" onclick="submitForm()" data-i18n="submitButton">Подтвердить участие</button>
       <p class="form-status" id="form-status" aria-live="polite"></p>
 
-      <p style="font-size:11px; color:var(--muted); opacity:0.7; line-height:1.7; margin-top:20px; text-align:center;">
+      <p style="font-size:11px; color:var(--muted); opacity:0.7; line-height:1.7; margin-top:20px; text-align:center;" data-i18n-html="registerAfterNote">
         После регистрации на указанный email поступит письмо с электронным пригласительным. Вход на мероприятие осуществляется <strong style="color:rgba(160,185,230,0.9)">только при наличии пригласительного</strong> — предъявите его в распечатанном виде или на экране телефона.<br>
         Организаторы оставляют за собой право отменить демонстрационный полёт в случае неблагоприятных погодных условий (сильный ветер, дождь). Наземная программа мероприятия при этом сохраняется в полном объёме.
       </p>
@@ -825,8 +885,8 @@
 
     <div class="success-box" id="success-box">
       <div class="check">✓</div>
-      <h3>Регистрация подтверждена!</h3>
-      <p>На указанный вами email будет направлено письмо с электронным пригласительным.<br><br>
+      <h3 data-i18n="successTitle">Регистрация подтверждена!</h3>
+      <p data-i18n-html="successDesc">На указанный вами email будет направлено письмо с электронным пригласительным.<br><br>
       <strong style="color:var(--white)">Вход на мероприятие — только по пригласительному.</strong> Пожалуйста, предъявите его в день события — в распечатанном виде или на экране телефона.</p>
     </div>
   </div>
@@ -835,33 +895,33 @@
 <!-- FAQ -->
 <section class="faq-section">
   <div class="container">
-    <p class="section-label">Вопросы и ответы</p>
-    <h2 class="section-title">Часто задаваемые<br>вопросы</h2>
+    <p class="section-label" data-i18n="faqLabel">Вопросы и ответы</p>
+    <h2 class="section-title" data-i18n-html="faqTitle">Часто задаваемые<br>вопросы</h2>
 
     <div class="faq-list">
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">Мероприятие платное?</button>
-        <div class="faq-a"><div class="faq-a-inner">Нет. Участие бесплатное — по персональному приглашению от UAM Center Eurasia.</div></div>
+        <button class="faq-q" onclick="toggleFaq(this)" data-i18n="faq1Q">Мероприятие платное?</button>
+        <div class="faq-a"><div class="faq-a-inner" data-i18n="faq1A">Нет. Участие бесплатное — по персональному приглашению от UAM Center Eurasia.</div></div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">Где пройдёт мероприятие?</button>
-        <div class="faq-a"><div class="faq-a-inner">Мероприятие проходит в г. Алатау. Точный адрес, схема проезда и инструкции по парковке будут направлены в письме-подтверждении после регистрации.</div></div>
+        <button class="faq-q" onclick="toggleFaq(this)" data-i18n="faq2Q">Где пройдёт мероприятие?</button>
+        <div class="faq-a"><div class="faq-a-inner" data-i18n="faq2A">Мероприятие проходит в г. Алатау. Точный адрес, схема проезда и инструкции по парковке будут направлены в письме-подтверждении после регистрации.</div></div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">Смогу ли я полететь на аэротакси?</button>
-        <div class="faq-a"><div class="faq-a-inner">На данном этапе полёт демонстрационный — без пассажиров на борту. Гости наблюдают за полётом с земли.</div></div>
+        <button class="faq-q" onclick="toggleFaq(this)" data-i18n="faq3Q">Смогу ли я полететь на аэротакси?</button>
+        <div class="faq-a"><div class="faq-a-inner" data-i18n="faq3A">На данном этапе полёт демонстрационный — без пассажиров на борту. Гости наблюдают за полётом с земли.</div></div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">Могу ли я передать приглашение коллеге?</button>
-        <div class="faq-a"><div class="faq-a-inner">Приглашение является именным. Если вы хотите предложить участие другому представителю вашей организации, пожалуйста, свяжитесь с нами заранее.</div></div>
+        <button class="faq-q" onclick="toggleFaq(this)" data-i18n="faq4Q">Могу ли я передать приглашение коллеге?</button>
+        <div class="faq-a"><div class="faq-a-inner" data-i18n="faq4A">Приглашение является именным. Если вы хотите предложить участие другому представителю вашей организации, пожалуйста, свяжитесь с нами заранее.</div></div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">Что произойдёт после регистрации?</button>
-        <div class="faq-a"><div class="faq-a-inner">Вы получите письмо-подтверждение на указанный email. За 48 часов до события — финальный брифинг с адресом, временем сбора и программой дня.</div></div>
+        <button class="faq-q" onclick="toggleFaq(this)" data-i18n="faq5Q">Что произойдёт после регистрации?</button>
+        <div class="faq-a"><div class="faq-a-inner" data-i18n="faq5A">Вы получите письмо-подтверждение на указанный email. За 48 часов до события — финальный брифинг с адресом, временем сбора и программой дня.</div></div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">Как связаться с организаторами?</button>
-        <div class="faq-a"><div class="faq-a-inner">Напишите нам: <strong style="color:var(--accent)">info@aaag.kz</strong> — команда UAM Center Eurasia ответит в течение рабочего дня.</div></div>
+        <button class="faq-q" onclick="toggleFaq(this)" data-i18n="faq6Q">Как связаться с организаторами?</button>
+        <div class="faq-a"><div class="faq-a-inner" data-i18n-html="faq6A">Напишите нам: <strong style="color:var(--accent)">info@aaag.kz</strong> — команда UAM Center Eurasia ответит в течение рабочего дня.</div></div>
       </div>
     </div>
   </div>
@@ -870,11 +930,318 @@
 <!-- FOOTER -->
 <footer>
   <strong>UAM Center Eurasia</strong><br>
-  Первый демонстрационный полёт аэротакси · Alatau Advance Air Group · 2026<br><br>
-  <span>info@aaag.kz &nbsp;·&nbsp; Казахстан</span>
+  <span data-i18n="footerLine">Первый демонстрационный полёт аэротакси · Alatau Advance Air Group · 2026</span><br><br>
+  <span data-i18n-html="footerMeta">info@aaag.kz &nbsp;·&nbsp; Казахстан</span>
 </footer>
 
 <script>
+  const translations = {
+    ru: {
+      pageTitle: 'UAM Center Eurasia',
+      heroEyebrow: 'Закрытая демонстрация',
+      heroSub: 'Вы получили персональное приглашение.<br><strong>Alatau Advance Air Group</strong> открывает эпоху городской аэромобильности в Казахстане — и мы рады видеть вас среди первых свидетелей этого момента.',
+      heroCta: 'Подтвердить участие',
+      aboutLabel: 'О мероприятии',
+      aboutTitle: 'Будущее уже<br>над городом',
+      aboutDesc: 'Первый закрытый демонстрационный полёт аэротакси в UAM Center Eurasia — это больше, чем авиашоу. Это начало новой транспортной инфраструктуры Казахстана, которую мы строим вместе с вами.',
+      evtolAlt: 'Модель eVTOL',
+      feature1Title: 'Полностью электрический',
+      feature1Desc: 'eVTOL-аппарат на электротяге — тихий, экологичный и безопасный полёт над городом.',
+      feature2Title: 'Автономная навигация',
+      feature2Desc: 'Пилотирование с поддержкой систем автопилота и технологий цифрового управления воздушным пространством.',
+      feature3Title: 'Городская мобильность',
+      feature3Desc: 'Концепция аэротакси разработана для регулярных маршрутов между ключевыми точками города.',
+      feature4Title: 'Сделано для Казахстана',
+      feature4Desc: 'Проект адаптирован под климатические и инфраструктурные условия казахстанских городов.',
+      stat1Label: 'Первый в Центральной Азии',
+      stat2Label: 'Электрический аппарат вертикального взлёта и посадки',
+      stat3Label: 'Выбросов CO₂',
+      stat4Label: 'Мест для гостей',
+      programmeLabel: 'Программа дня',
+      programmeTitle: 'Как пройдёт<br>мероприятие',
+      programmeDesc: 'Один день, который войдёт в историю страны. Мы подготовили насыщенную программу для приглашённых гостей.',
+      timeline1Title: 'Регистрация и приветствие гостей',
+      timeline1Desc: 'Приём гостей, приветственный кейтеринг.',
+      timeline2Title: 'Официальное открытие',
+      timeline2Desc: 'Приветственное слово представителей компании, партнёров и официальных гостей.',
+      timeline3Title: 'Презентации технологий',
+      timeline3Desc: 'Презентации партнёров по low altitude economy (LAE).',
+      timeline4Title: 'Исторический первый полёт',
+      timeline4Desc: 'Главный момент дня — демонстрационный полёт eVTOL над площадкой.',
+      timeline5Title: 'Доставка с помощью беспилотных авиасистем',
+      timeline5Desc: 'Демонстрация элементов экономики низких высот (LAE) с использованием беспилотных авиасистем.',
+      timeline6Title: 'Официальное закрытие',
+      timeline6Desc: 'Раздача информационных материалов и памятных сувениров для всех гостей.',
+      registerLabel: 'Подтверждение участия',
+      registerTitle: 'Зарегистрируйтесь<br>как гость',
+      registerDesc: 'Мероприятие закрытое — только по приглашениям. Заполните форму, чтобы подтвердить ваше участие. Мы вышлем детали на указанный email.',
+      firstNameLabel: 'Имя *',
+      firstNamePlaceholder: 'Алибек',
+      lastNameLabel: 'Фамилия *',
+      lastNamePlaceholder: 'Жаксыбеков',
+      companyLabel: 'Название компании *',
+      companyPlaceholder: 'Alatau Advance Air Group',
+      positionLabel: 'Должность *',
+      positionPlaceholder: 'Директор / Руководитель отдела / Советник...',
+      phoneLabel: 'Телефон *',
+      phonePlaceholder: '+7 (___) ___-__-__',
+      emailLabel: 'Email *',
+      emailPlaceholder: 'name@example.com',
+      formNote: 'Нажимая кнопку, вы соглашаетесь с обработкой персональных данных. Информация используется исключительно для организации мероприятия.',
+      submitButton: 'Подтвердить участие',
+      registerAfterNote: 'После регистрации на указанный email поступит письмо с электронным пригласительным. Вход на мероприятие осуществляется <strong style="color:rgba(160,185,230,0.9)">только при наличии пригласительного</strong> — предъявите его в распечатанном виде или на экране телефона.<br>Организаторы оставляют за собой право отменить демонстрационный полёт в случае неблагоприятных погодных условий (сильный ветер или дождь). Наземная программа мероприятия при этом сохраняется в полном объёме.',
+      successTitle: 'Регистрация подтверждена!',
+      successDesc: 'На указанный вами email будет направлено письмо с электронным пригласительным.<br><br><strong style="color:var(--white)">Вход на мероприятие — только по пригласительному.</strong> Пожалуйста, предъявите его в день события — в распечатанном виде или на экране телефона.',
+      faqLabel: 'Вопросы и ответы',
+      faqTitle: 'Часто задаваемые<br>вопросы',
+      faq1Q: 'Мероприятие платное?',
+      faq1A: 'Нет. Участие бесплатное — по персональному приглашению от UAM Center Eurasia.',
+      faq2Q: 'Где пройдёт мероприятие?',
+      faq2A: 'Мероприятие пройдёт в Алатау. Точный адрес, схема проезда и инструкции по парковке будут направлены в письме-подтверждении после регистрации.',
+      faq3Q: 'Смогу ли я полететь на аэротакси?',
+      faq3A: 'На данном этапе полёт демонстрационный — без пассажиров на борту. Гости будут наблюдать за полётом с земли. Возможность тестового рейса рассматривается на следующем этапе программы.',
+      faq4Q: 'Могу ли я передать приглашение коллеге?',
+      faq4A: 'Приглашение является именным и не подлежит передаче. Если вы хотите предложить участие другому представителю вашей организации, пожалуйста, свяжитесь с нами заранее.',
+      faq5Q: 'Что произойдёт после регистрации?',
+      faq5A: 'Вы получите письмо-подтверждение на указанный email. За 48 часов до события вам будет направлен финальный брифинг с адресом площадки, временем сбора и программой дня.',
+      faq6Q: 'Как связаться с организаторами?',
+      faq6A: 'Напишите нам: <strong style="color:var(--accent)">info@aaag.kz</strong> — команда UAM Center Eurasia ответит в течение одного рабочего дня.',
+      footerLine: 'Первый демонстрационный полёт аэротакси · Alatau Advance Air Group · 2026',
+      footerMeta: 'info@aaag.kz &nbsp;·&nbsp; Казахстан',
+      alertRequired: 'Пожалуйста, заполните все обязательные поля.',
+      alertEmail: 'Введите корректный email-адрес.',
+      statusSubmitting: 'Отправляем заявку...',
+      saveError: 'Не удалось сохранить заявку.',
+      sendError: 'Не удалось отправить заявку.'
+    },
+    kz: {
+      pageTitle: 'UAM Center Eurasia',
+      heroEyebrow: 'Жабық демонстрация',
+      heroSub: 'Сіз жеке шақыру алдыңыз.<br><strong>Alatau Advance Air Group</strong> Қазақстанда қалалық аэромобильділік дәуірін ашуда — және біз сізді осы тарихи сәттің алғашқы куәгерлері арасында көргенімізге қуаныштымыз.',
+      heroCta: 'Қатысуды растау',
+      aboutLabel: 'Іс-шара туралы',
+      aboutTitle: 'Болашақ<br>қала үстінде',
+      aboutDesc: 'UAM Center Eurasia-дағы аэротаксидің алғашқы жабық демонстрациялық ұшуы — бұл жай ғана авиашоу емес. Бұл біз сізбен бірге құрып жатқан Қазақстанның жаңа көлік инфрақұрылымының басталуы.',
+      evtolAlt: 'eVTOL моделі',
+      feature1Title: 'Толығымен электрлі',
+      feature1Desc: 'Электр қозғалтқышындағы eVTOL аппараты — қала үстіндегі үнсіз, экологиялық таза және қауіпсіз ұшу.',
+      feature2Title: 'Дербес навигация',
+      feature2Desc: 'Автопилот жүйелері мен цифрлық әуе кеңістігін басқару технологиясының қолдауымен ұшырылады.',
+      feature3Title: 'Қалалық мобильділік',
+      feature3Desc: 'Аэротакси тұжырымдамасы қаланың негізгі нүктелері арасындағы тұрақты бағыттарға арналған.',
+      feature4Title: 'Қазақстан үшін жасалған',
+      feature4Desc: 'Жоба қазақстандық қалалардың климаттық және инфрақұрылымдық жағдайларына бейімделген.',
+      stat1Label: 'Орталық Азиядағы бірінші',
+      stat2Label: 'Электрлі тік ұшып көтерілетін және қонатын ұшақ',
+      stat3Label: 'CO₂ шығарындылары',
+      stat4Label: 'Қонақтарға арналған орын',
+      programmeLabel: 'Күн бағдарламасы',
+      programmeTitle: 'Іс-шара қалай<br>өтеді',
+      programmeDesc: 'Ел тарихына енетін бір күн. Біз шақырылған қонақтар үшін мазмұнды бағдарлама дайындадық.',
+      timeline1Title: 'Қонақтарды тіркеу және қарсы алу',
+      timeline1Desc: 'Қонақтарды қабылдау, сәлемдесу кейтерингі.',
+      timeline2Title: 'Ресми ашылу',
+      timeline2Desc: 'Компания өкілдерінің, серіктестер мен ресми қонақтардың сәлемдесу сөзі.',
+      timeline3Title: 'Технологиялар презентациясы',
+      timeline3Desc: 'Төмен биіктік экономикасы (LAE) бойынша серіктестердің презентациясы.',
+      timeline4Title: 'Тарихи алғашқы ұшу',
+      timeline4Desc: 'Күннің басты сәті — алаң үстінде eVTOL-дың демонстрациялық ұшуы.',
+      timeline5Title: 'Пилотсыз авиажүйелермен жеткізу',
+      timeline5Desc: 'Төмен биіктік экономикасының (LAE) элементтерін пилотсыз авиажүйелер арқылы көрсету.',
+      timeline6Title: 'Ресми жабылу',
+      timeline6Desc: 'Барлық қонақтарға ақпараттық материалдар мен естелік сыйлықтар тарату.',
+      registerLabel: 'Қатысуды растау',
+      registerTitle: 'Қонақ ретінде<br>тіркелу',
+      registerDesc: 'Іс-шара жабық — тек шақырулар бойынша. Қатысуыңызды растау үшін форманы толтырыңыз. Біз мәліметтерді көрсетілген email-ге жібереміз.',
+      firstNameLabel: 'Аты *',
+      firstNamePlaceholder: 'Әлібек',
+      lastNameLabel: 'Тегі *',
+      lastNamePlaceholder: 'Жақсыбеков',
+      companyLabel: 'Компания атауы *',
+      companyPlaceholder: 'Alatau Advance Air Group',
+      positionLabel: 'Лауазымы *',
+      positionPlaceholder: 'Директор / Бөлім басшысы / Кеңесші...',
+      phoneLabel: 'Телефон *',
+      phonePlaceholder: '+7 (___) ___-__-__',
+      emailLabel: 'Email *',
+      emailPlaceholder: 'name@example.com',
+      formNote: 'Түймені басу арқылы сіз дербес деректерді өңдеуге келісесіз. Ақпарат тек іс-шараны ұйымдастыру мақсатында пайдаланылады.',
+      submitButton: 'Қатысуды растау',
+      registerAfterNote: 'Тіркелгеннен кейін көрсетілген email-ге электрондық шақырту хаты жіберіледі. Іс-шараға кіру тек <strong style="color:rgba(160,185,230,0.9)">жарамды шақырту болған жағдайда ғана мүмкін</strong> — оны басып шығарылған түрде немесе телефон экранында көрсетіңіз.<br>Ұйымдастырушылар қолайсыз ауа райы жағдайында (қатты жел немесе жаңбыр) демонстрациялық ұшуды болдырмау құқығын өздерінде қалдырады. Іс-шараның жердегі бағдарламасы толық көлемде сақталады.',
+      successTitle: 'Тіркеу расталды!',
+      successDesc: 'Сіз көрсеткен email-ге электрондық шақырту хаты жіберіледі.<br><br><strong style="color:var(--white)">Іс-шараға кіру тек шақыртумен жүзеге асырылады.</strong> Оны іс-шара күні басып шығарылған түрде немесе телефон экранында көрсетіңіз.',
+      faqLabel: 'Сұрақтар мен жауаптар',
+      faqTitle: 'Жиі қойылатын<br>сұрақтар',
+      faq1Q: 'Іс-шара ақылы ма?',
+      faq1A: 'Жоқ. Қатысу тегін — UAM Center Eurasia-дан жеке шақыру бойынша.',
+      faq2Q: 'Іс-шара қайда өтеді?',
+      faq2A: 'Іс-шара Алатауда өтеді. Нақты мекенжай, жол сызбасы және тұрақ нұсқаулары тіркелгеннен кейін растау хатында жіберіледі.',
+      faq3Q: 'Аэротаксиде ұша аламын ба?',
+      faq3A: 'Бұл кезеңде ұшу демонстрациялық сипатта — бортта жолаушылар болмайды. Қонақтар ұшуды жерден бақылайды. Сынақ рейсі мүмкіндігі бағдарламаның келесі кезеңіне жоспарланған.',
+      faq4Q: 'Шақыртуды әріптесіме бере аламын ба?',
+      faq4A: 'Шақырту атаулы болып табылады және басқа адамға берілмейді. Егер ұйымыңыздың басқа өкілін қатыстырғыңыз келсе, бізбен алдын ала хабарласыңыз.',
+      faq5Q: 'Тіркелгеннен кейін не болады?',
+      faq5A: 'Көрсетілген email-ге растау хаты жіберіледі. Іс-шарадан 48 сағат бұрын мекенжай, жиналу уақыты және күн бағдарламасы бар түпкілікті брифинг жолданады.',
+      faq6Q: 'Ұйымдастырушылармен қалай байланысуға болады?',
+      faq6A: 'Бізге жазыңыз: <strong style="color:var(--accent)">info@aaag.kz</strong> — UAM Center Eurasia командасы бір жұмыс күні ішінде жауап береді.',
+      footerLine: 'Аэротаксидің алғашқы демонстрациялық ұшуы · Alatau Advance Air Group · 2026',
+      footerMeta: 'info@aaag.kz &nbsp;·&nbsp; Қазақстан',
+      alertRequired: 'Барлық міндетті өрістерді толтырыңыз.',
+      alertEmail: 'Дұрыс email мекенжайын енгізіңіз.',
+      statusSubmitting: 'Өтінім жіберілуде...',
+      saveError: 'Өтінімді сақтау мүмкін болмады.',
+      sendError: 'Өтінімді жіберу мүмкін болмады.'
+    },
+    en: {
+      pageTitle: 'UAM Center Eurasia',
+      heroEyebrow: 'Closed Demonstration',
+      heroSub: 'You have received a personal invitation.<br><strong>Alatau Advance Air Group</strong> is ushering in the era of urban air mobility in Kazakhstan — and we are proud to welcome you among the first witnesses of this moment.',
+      heroCta: 'Confirm Attendance',
+      aboutLabel: 'About the Event',
+      aboutTitle: 'The Future Is Already<br>Above the City',
+      aboutDesc: 'The first closed demonstration flight of an air taxi at UAM Center Eurasia is more than an airshow. It is the beginning of a new transport infrastructure for Kazakhstan — one we are building together with you.',
+      evtolAlt: 'eVTOL model',
+      feature1Title: 'Fully Electric',
+      feature1Desc: 'An eVTOL aircraft powered entirely by electricity — quiet, eco-friendly, and safe flight over the city.',
+      feature2Title: 'Autonomous Navigation',
+      feature2Desc: 'Piloted with the support of autopilot systems and digital airspace control technology.',
+      feature3Title: 'Urban Mobility',
+      feature3Desc: 'The air taxi concept is designed for regular routes between key points across the city.',
+      feature4Title: 'Built for Kazakhstan',
+      feature4Desc: 'The project is adapted to the climatic and infrastructural conditions of Kazakhstani cities.',
+      stat1Label: 'First in Central Asia',
+      stat2Label: 'Electric Vertical Take-Off and Landing Aircraft',
+      stat3Label: 'CO₂ Emissions',
+      stat4Label: 'Guests',
+      programmeLabel: 'Day Programme',
+      programmeTitle: 'How the Event Will<br>Unfold',
+      programmeDesc: 'A day that will go down in the history of the country. We have prepared a rich programme for our invited guests.',
+      timeline1Title: 'Guest Registration & Welcome',
+      timeline1Desc: 'Guest reception and welcome catering.',
+      timeline2Title: 'Official Opening',
+      timeline2Desc: 'Welcome remarks from company representatives, partners, and official guests.',
+      timeline3Title: 'Technology Presentations',
+      timeline3Desc: 'Presentations by Low Altitude Economy (LAE) partners.',
+      timeline4Title: 'The Historic First Flight',
+      timeline4Desc: 'The centrepiece of the day — a demonstration flight of an eVTOL aircraft over the venue.',
+      timeline5Title: 'Drone Delivery Demonstration',
+      timeline5Desc: 'A live showcase of Low Altitude Economy (LAE) elements using unmanned aerial systems.',
+      timeline6Title: 'Official Closing',
+      timeline6Desc: 'Distribution of informational materials and commemorative souvenirs for all guests.',
+      registerLabel: 'Confirm Your Attendance',
+      registerTitle: 'Register as<br>a Guest',
+      registerDesc: 'This is a closed event — by invitation only. Please fill in the form to confirm your participation. We will send the details to the email address provided.',
+      firstNameLabel: 'First Name *',
+      firstNamePlaceholder: 'Alibek',
+      lastNameLabel: 'Last Name *',
+      lastNamePlaceholder: 'Zhaksybekov',
+      companyLabel: 'Company Name *',
+      companyPlaceholder: 'Alatau Advance Air Group',
+      positionLabel: 'Position *',
+      positionPlaceholder: 'Director / Head of Department / Adviser...',
+      phoneLabel: 'Phone *',
+      phonePlaceholder: '+7 (___) ___-__-__',
+      emailLabel: 'Email *',
+      emailPlaceholder: 'name@example.com',
+      formNote: 'By clicking the button, you agree to the processing of your personal data. The information is used solely for the purpose of organising the event.',
+      submitButton: 'Confirm Attendance',
+      registerAfterNote: 'Upon registration, an e-invitation will be sent to the email address provided. Entry to the event is only permitted with a <strong style="color:rgba(160,185,230,0.9)">valid invitation</strong> — please present it either printed or on your phone screen.<br>The organisers reserve the right to cancel the demonstration flight in the event of adverse weather conditions (strong wind or rain). The ground programme of the event will proceed in full regardless.',
+      successTitle: 'Registration Confirmed!',
+      successDesc: 'An e-invitation will be sent to the email address you provided.<br><br><strong style="color:var(--white)">Entry to the event is only permitted with a valid invitation.</strong> Please present it on the day of the event either printed or on your phone screen.',
+      faqLabel: 'Q&A',
+      faqTitle: 'Frequently Asked<br>Questions',
+      faq1Q: 'Is the event paid?',
+      faq1A: 'No. Attendance is free of charge — by personal invitation from UAM Center Eurasia.',
+      faq2Q: 'Where will the event take place?',
+      faq2A: 'The event will be held in Alatau. The exact address, directions, and parking instructions will be included in the confirmation email sent after registration.',
+      faq3Q: 'Will I be able to fly in the air taxi?',
+      faq3A: 'At this stage, the flight is a demonstration only — with no passengers on board. Guests will observe the flight from the ground. The possibility of a test flight is planned for the next phase of the programme.',
+      faq4Q: 'Can I transfer my invitation to a colleague?',
+      faq4A: 'The invitation is personal and non-transferable. If you would like to propose participation for another representative of your organisation, please contact us in advance.',
+      faq5Q: 'What happens after registration?',
+      faq5A: 'You will receive a confirmation email at the address provided. 48 hours before the event, you will receive a final briefing with the venue address, arrival time, and the day&apos;s programme.',
+      faq6Q: 'How can I contact the organisers?',
+      faq6A: 'Reach us at: <strong style="color:var(--accent)">info@aaag.kz</strong> — the UAM Center Eurasia team will respond within one business day.',
+      footerLine: 'The first demonstration air taxi flight · Alatau Advance Air Group · 2026',
+      footerMeta: 'info@aaag.kz &nbsp;·&nbsp; Kazakhstan',
+      alertRequired: 'Please fill in all required fields.',
+      alertEmail: 'Please enter a valid email address.',
+      statusSubmitting: 'Submitting your registration...',
+      saveError: 'Could not save your registration.',
+      sendError: 'Could not send your registration.'
+    }
+  };
+
+  let currentLanguage = 'ru';
+
+  function applyLanguage(lang) {
+    const dictionary = translations[lang] || translations.ru;
+
+    currentLanguage = lang;
+    document.documentElement.lang = lang === 'kz' ? 'kk' : lang;
+    document.title = dictionary.pageTitle;
+
+    document.querySelectorAll('[data-i18n]').forEach((element) => {
+      const key = element.dataset.i18n;
+      if (dictionary[key]) {
+        element.textContent = dictionary[key];
+      }
+    });
+
+    document.querySelectorAll('[data-i18n-html]').forEach((element) => {
+      const key = element.dataset.i18nHtml;
+      if (dictionary[key]) {
+        element.innerHTML = dictionary[key];
+      }
+    });
+
+    document.querySelectorAll('[data-i18n-placeholder]').forEach((element) => {
+      const key = element.dataset.i18nPlaceholder;
+      if (dictionary[key]) {
+        element.placeholder = dictionary[key];
+      }
+    });
+
+    document.querySelectorAll('[data-i18n-alt]').forEach((element) => {
+      const key = element.dataset.i18nAlt;
+      if (dictionary[key]) {
+        element.alt = dictionary[key];
+      }
+    });
+
+    document.querySelectorAll('.lang-btn').forEach((button) => {
+      button.classList.toggle('active', button.dataset.lang === lang);
+    });
+
+    try {
+      localStorage.setItem('preferredLanguage', lang);
+    } catch (error) {
+    }
+  }
+
+  function getInitialLanguage() {
+    try {
+      const stored = localStorage.getItem('preferredLanguage');
+      if (stored && translations[stored]) {
+        return stored;
+      }
+    } catch (error) {
+    }
+
+    const browserLanguage = (navigator.language || '').toLowerCase();
+    if (browserLanguage.startsWith('kk') || browserLanguage.startsWith('kz')) {
+      return 'kz';
+    }
+    if (browserLanguage.startsWith('en')) {
+      return 'en';
+    }
+    return 'ru';
+  }
+
+  function setLanguage(lang) {
+    applyLanguage(lang);
+  }
+
   async function submitForm() {
     const fname = document.getElementById('fname').value.trim();
     const lname = document.getElementById('lname').value.trim();
@@ -889,18 +1256,18 @@
     statusBox.className = 'form-status';
 
     if (!fname || !lname || !company || !position || !phone || !email) {
-      alert('Пожалуйста, заполните все обязательные поля.');
+      alert(translations[currentLanguage].alertRequired);
       return;
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      alert('Введите корректный email-адрес.');
+      alert(translations[currentLanguage].alertEmail);
       return;
     }
 
     submitButton.disabled = true;
-    statusBox.textContent = 'Отправляем заявку...';
+    statusBox.textContent = translations[currentLanguage].statusSubmitting;
 
     try {
       const response = await fetch('/api/register', {
@@ -921,13 +1288,13 @@
       const result = await response.json().catch(() => ({}));
 
       if (!response.ok || !result.ok) {
-        throw new Error(result.error || 'Не удалось сохранить заявку.');
+        throw new Error(result.error || translations[currentLanguage].saveError);
       }
 
       document.getElementById('form-body').style.display = 'none';
       document.getElementById('success-box').style.display = 'block';
     } catch (error) {
-      statusBox.textContent = error.message || 'Не удалось отправить заявку.';
+      statusBox.textContent = error.message || translations[currentLanguage].sendError;
       statusBox.className = 'form-status error';
     } finally {
       submitButton.disabled = false;
@@ -949,6 +1316,8 @@
       answer.style.maxHeight = answer.scrollHeight + 'px';
     }
   }
+
+  applyLanguage(getInitialLanguage());
 </script>
 
 </body>
