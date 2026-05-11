@@ -210,6 +210,7 @@
             <p class="count" id="count-label">Загружаем заявки...</p>
           </div>
           <div class="actions">
+            <button class="btn" id="export-btn" type="button" onclick="exportCsv()">Экспорт CSV</button>
             <button class="btn btn-danger" id="delete-btn" type="button" onclick="deleteSelected()" disabled>Удалить выбранные</button>
           </div>
         </div>
@@ -326,6 +327,52 @@
       checkbox.checked = source.checked;
     });
     syncSelectionState();
+  }
+
+  async function exportCsv() {
+    const statusBox = document.getElementById('status-box');
+    const exportButton = document.getElementById('export-btn');
+
+    statusBox.textContent = 'Готовим CSV...';
+    statusBox.className = 'status';
+    exportButton.disabled = true;
+
+    try {
+      const response = await fetch('/api/registrations/export.csv');
+      if (!response.ok) {
+        let message = 'Не удалось выгрузить CSV.';
+        try {
+          const result = await response.json();
+          if (result && result.error) {
+            message = result.error;
+          }
+        } catch (error) {
+          // Ignore JSON parse errors for non-JSON responses.
+        }
+        throw new Error(message);
+      }
+
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      const disposition = response.headers.get('Content-Disposition') || '';
+      const match = disposition.match(/filename=\"?([^"]+)\"?/i);
+
+      link.href = url;
+      link.download = match ? match[1] : 'guest-list.csv';
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+
+      statusBox.textContent = 'CSV успешно выгружен.';
+      statusBox.className = 'status success';
+    } catch (error) {
+      statusBox.textContent = error.message || 'Не удалось выгрузить CSV.';
+      statusBox.className = 'status error';
+    } finally {
+      exportButton.disabled = false;
+    }
   }
 
   async function deleteSelected() {

@@ -8,7 +8,7 @@ from contextlib import closing
 from datetime import datetime, timezone
 from pathlib import Path
 
-from flask import Flask, jsonify, request
+from flask import Flask, Response, jsonify, request
 
 
 DB_PATH = Path(os.environ.get("REGISTRATIONS_DB_PATH", "/data/registrations.db"))
@@ -53,21 +53,28 @@ def init_db() -> None:
         connection.commit()
 
 
-def validate_payload(payload: dict[str, str]) -> tuple[dict[str, str], str | None]:
-    required_fields = {
-        "first_name": "first_name",
-        "last_name": "last_name",
-        "company_name": "company_name",
-        "position": "position",
-        "phone": "phone",
-        "email": "email",
+def validate_payload(payload: dict[str, object]) -> tuple[dict[str, str], str | None]:
+    field_aliases = {
+        "first_name": ("first_name", "firstName", "fname"),
+        "last_name": ("last_name", "lastName", "lname"),
+        "company_name": ("company_name", "company", "companyName", "companyTitle"),
+        "position": ("position", "job_title", "jobTitle"),
+        "phone": ("phone", "phone_number", "phoneNumber"),
+        "email": ("email", "email_address", "emailAddress"),
     }
 
     cleaned: dict[str, str] = {}
-    for source_key, target_key in required_fields.items():
-        value = str(payload.get(source_key, "")).strip()
+    for target_key, aliases in field_aliases.items():
+        value = ""
+        used_alias = aliases[0]
+        for alias in aliases:
+            candidate = str(payload.get(alias, "")).strip()
+            if candidate:
+                value = candidate
+                used_alias = alias
+                break
         if not value:
-            return {}, f"Field '{source_key}' is required."
+            return {}, f"Field '{used_alias}' is required."
         cleaned[target_key] = value
 
     email = cleaned["email"]
@@ -135,6 +142,54 @@ def list_registrations() -> object:
             "items": [dict(row) for row in rows],
             "count": len(rows),
         }
+    )
+
+
+@app.get("/api/registrations/export.csv")
+def export_registrations_csv() -> Response:
+    with closing(get_connection()) as connection:
+        rows = connection.execute(
+            """
+            SELECT id, first_name, last_name, company_name, position, phone, email, created_at
+            FROM registrations
+            ORDER BY id DESC
+            """
+        ).fetchall()
+
+    output = io.StringIO()
+    writer = csv.writer(output)
+    writer.writerow(
+        [
+            "id",
+            "first_name",
+            "last_name",
+            "company_name",
+            "position",
+            "phone",
+            "email",
+            "created_at",
+        ]
+    )
+    for row in rows:
+        writer.writerow(
+            [
+                row["id"],
+                row["first_name"],
+                row["last_name"],
+                row["company_name"],
+                row["position"],
+                row["phone"],
+                row["email"],
+                row["created_at"],
+            ]
+        )
+
+    filename = f"guest-list-{datetime.now(timezone.utc).strftime('%Y%m%d-%H%M%S')}.csv"
+    csv_content = "\ufeff" + output.getvalue()
+    return Response(
+        csv_content,
+        content_type="text/csv; charset=utf-8",
+        headers={"Content-Disposition": f'attachment; filename="{filename}"'},
     )
 
 
